@@ -1,8 +1,27 @@
 import tkinter as tk
-from tkinter.messagebox import showinfo
 from urllib.request import urlopen
 import win32clipboard
 import webbrowser
+
+def popup(TopLevel, Title, Geometry, Windowbg, MSG, TextBG, TextFG):
+    #print(f"Popup made: {TopLevel}, {Title}, {Geometry}, {Windowbg}, {MSG}, {TextBG}, {TextFG}")
+    popup = tk.Toplevel(TopLevel)
+    popup.wm_title(Title)
+    popup.geometry(Geometry)
+    popup.config(bg=Windowbg)
+    msg = tk.Label(popup, text=MSG, bg=TextBG, fg=TextFG)
+    msg.pack()
+    def okay():
+        popup.destroy()
+    ok_button = tk.Button(popup, text="Okay", command=okay, bg="#c9d1d9")
+    ok_button.pack(expand=True)
+
+def copy(Script):
+    script = str(urlopen(Script).read().decode('utf8')) 
+    win32clipboard.OpenClipboard()
+    win32clipboard.EmptyClipboard()
+    win32clipboard.SetClipboardText(script, 13)
+    win32clipboard.CloseClipboard()
 
 def udump_importer():
     importer_window = tk.Toplevel(root)
@@ -11,31 +30,14 @@ def udump_importer():
     importer_window.config(bg="#0d1117")
 
     def yes():
-        script = str(urlopen('https://raw.githubusercontent.com/M4X40/UDumptoBlender/main/importer.py').read().decode('utf8')) 
-        win32clipboard.OpenClipboard()
-        win32clipboard.EmptyClipboard()
-        win32clipboard.SetClipboardText(script, 13)
-        win32clipboard.CloseClipboard()
-        complete_popup()
+        copy('https://raw.githubusercontent.com/M4X40/UDumptoBlender/main/importer.py')
+        popup(root, "UDump Importer", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
+        importer_window.destroy()
 
     def no():
         webbrowser.open("https://github.com/ZenCreates/Fnaf99GatorGames")
         importer_window.destroy()
-    
-    def complete_popup():
-        popup = tk.Toplevel(importer_window)
-        popup.wm_title("UDump Importer")
-        popup.geometry("150x75")
-        popup.config(bg="#0d1117")
-        msg = tk.Label(popup, text="Copied to Clipboard!", bg="#0d1117", fg="#c9d1d9")
-        msg.pack()
-        def okay():
-            popup.destroy()
-            importer_window.destroy()
-        ok_button = tk.Button(popup, text="Okay", command=okay, bg="#c9d1d9")
-        ok_button.pack(expand=True)
-
-    
+        
     top_pad = tk.Frame(importer_window, bg="#0d1117", width=350, height=20)
     top_pad.pack(side="top")
 
@@ -49,44 +51,20 @@ def udump_importer():
     no_button.pack(side="right", expand=True)
 
 def find_replace_materials():
-    script = str(urlopen('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/findreplacematerial.py').read().decode('utf8')) 
-    win32clipboard.OpenClipboard()
-    win32clipboard.EmptyClipboard()
-    win32clipboard.SetClipboardText(script, 13)
-    win32clipboard.CloseClipboard()
-    frm_window = tk.Toplevel(root)
-    frm_window.title("Find Replace Material")
-    frm_window.geometry("150x75")
-    frm_window.config(bg="#0d1117")
-    msg = tk.Label(frm_window, text="Copied to Clipboard!", bg="#0d1117", fg="#c9d1d9")
-    msg.pack()
-    def okay():
-        frm_window.destroy()
-    ok_button = tk.Button(frm_window, text="Okay", command=okay, bg="#c9d1d9")
-    ok_button.pack(expand=True)
+    copy('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/findreplacematerial.py')
+    popup(root, "Find-Replace Materials", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
 
 def mat_uv_duplicator():
-    script = str(urlopen('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/Mat-UV_Looping.py').read().decode('utf8')) 
-    win32clipboard.OpenClipboard()
-    win32clipboard.EmptyClipboard()
-    win32clipboard.SetClipboardText(script, 13)
-    win32clipboard.CloseClipboard()
-    frm_window = tk.Toplevel(root)
-    frm_window.title("Mat UV Duplicator")
-    frm_window.geometry("150x75")
-    frm_window.config(bg="#0d1117")
-    msg = tk.Label(frm_window, text="Copied to Clipboard!", bg="#0d1117", fg="#c9d1d9")
-    msg.pack()
-    def okay():
-        frm_window.destroy()
-    ok_button = tk.Button(frm_window, text="Okay", command=okay, bg="#c9d1d9")
-    ok_button.pack(expand=True)
+    copy('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/Mat-UV_Looping.py')
+    popup(root, "Mat-UV Duplicator", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
 
 def find_node_type():
-    print("Find Node Type button clicked")
+    copy('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/FindNodeType.py')
+    popup(root, "Find Node Type", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
 
 def group_to_pbsdf():
-    print("Group to PBSDF button clicked")
+    copy('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/GroupToPBSDF.py')
+    popup(root, "Group to Principled BSDF", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
 
 def split_orm():
     print("Split ORM button clicked")
@@ -97,7 +75,7 @@ def remove_mat_clones():
 
 root = tk.Tk()
 root.title("M4X4's Blender Tools")
-root.geometry("290x80")
+root.geometry("290x112")
 root.config(bg="#0d1117")
 
 udump_importer_button = tk.Button(root, text="UDump Importer", command=udump_importer, bg="#c9d1d9")
@@ -109,11 +87,11 @@ find_replace_materials_button.pack()
 mat_uv_duplicator_button = tk.Button(root, text="Mat-UV Duplicator", command=mat_uv_duplicator, bg="#c9d1d9")
 mat_uv_duplicator_button.pack()
 
-# find_node_type_button = tk.Button(root, text="Find Node Type", command=find_node_type, bg="#ea99a2")
-# find_node_type_button.pack()
+find_node_type_button = tk.Button(root, text="Find Node Type", command=find_node_type, bg="#c9d1d9")
+find_node_type_button.pack()
 
-# group_to_pbsdf_button = tk.Button(root, text="Group to PBSDF", command=group_to_pbsdf, bg="#ea99a2")
-# group_to_pbsdf_button.pack()
+group_to_pbsdf_button = tk.Button(root, text="Group to Principled BSDF", command=group_to_pbsdf, bg="#ea99a2")
+group_to_pbsdf_button.pack()
 
 # split_orm_button = tk.Button(root, text="Split ORM", command=split_orm, bg="#ea99a2")
 # split_orm_button.pack()
