@@ -66,16 +66,14 @@ def group_to_pbsdf():
     copy('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/GroupToPBSDF.py')
     popup(root, "Group to Principled BSDF", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
 
-def split_orm():
-    print("Split ORM button clicked")
-
 def remove_mat_clones():
-    print("Remove Mat Clones button clicked")
+    copy('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/RemoveMaterialClones.py')
+    popup(root, "Remove Material Clones", "150x75", "#0d1117", "Copied to Clipboard!", "#0d1117", "#c9d1d9")
 
 
 root = tk.Tk()
 root.title("M4X4's Blender Tools")
-root.geometry("290x112")
+root.geometry("290x168")
 root.config(bg="#0d1117")
 
 udump_importer_button = tk.Button(root, text="UDump Importer", command=udump_importer, bg="#c9d1d9")
@@ -90,13 +88,10 @@ mat_uv_duplicator_button.pack()
 find_node_type_button = tk.Button(root, text="Find Node Type", command=find_node_type, bg="#c9d1d9")
 find_node_type_button.pack()
 
-group_to_pbsdf_button = tk.Button(root, text="Group to Principled BSDF", command=group_to_pbsdf, bg="#ea99a2")
+group_to_pbsdf_button = tk.Button(root, text="Group to Principled BSDF", command=group_to_pbsdf, bg="#c9d1d9")
 group_to_pbsdf_button.pack()
 
-# split_orm_button = tk.Button(root, text="Split ORM", command=split_orm, bg="#ea99a2")
-# split_orm_button.pack()
-
-# remove_mat_clones_button = tk.Button(root, text="Remove Mat Clones", command=remove_mat_clones, bg="#ea99a2")
-# remove_mat_clones_button.pack()
+remove_mat_clones_button = tk.Button(root, text="Remove Mat Clones", command=remove_mat_clones, bg="#c9d1d9")
+remove_mat_clones_button.pack()
 
 root.mainloop()
