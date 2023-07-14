@@ -1,5 +1,5 @@
-BlenderTools
-%%%%%%%%%%%%
+BlenderArmyKnife
+%%%%%%%%%%%%%%%%
 
 A "swiss army knife" of blender scripts I have made
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
