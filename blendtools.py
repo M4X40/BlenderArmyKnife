@@ -66,7 +66,21 @@ def find_replace_materials():
     ok_button.pack(expand=True)
 
 def mat_uv_duplicator():
-    print("Mat/UV Duplicator button clicked")
+    script = str(urlopen('https://raw.githubusercontent.com/M4X40/BlenderTools/scripts/Mat-UV_Looping.py').read().decode('utf8')) 
+    win32clipboard.OpenClipboard()
+    win32clipboard.EmptyClipboard()
+    win32clipboard.SetClipboardText(script, 13)
+    win32clipboard.CloseClipboard()
+    frm_window = tk.Toplevel(root)
+    frm_window.title("Mat UV Duplicator")
+    frm_window.geometry("150x75")
+    frm_window.config(bg="#0d1117")
+    msg = tk.Label(frm_window, text="Copied to Clipboard!", bg="#0d1117", fg="#c9d1d9")
+    msg.pack()
+    def okay():
+        frm_window.destroy()
+    ok_button = tk.Button(frm_window, text="Okay", command=okay, bg="#c9d1d9")
+    ok_button.pack(expand=True)
 
 def find_node_type():
     print("Find Node Type button clicked")
@@ -83,7 +97,7 @@ def remove_mat_clones():
 
 root = tk.Tk()
 root.title("M4X4's Blender Tools")
-root.geometry("290x193")
+root.geometry("290x80")
 root.config(bg="#0d1117")
 
 udump_importer_button = tk.Button(root, text="UDump Importer", command=udump_importer, bg="#c9d1d9")
@@ -92,8 +106,8 @@ udump_importer_button.pack()
 find_replace_materials_button = tk.Button(root, text="Find/Replace Materials", command=find_replace_materials, bg="#c9d1d9")
 find_replace_materials_button.pack()
 
-# mat_uv_duplicator_button = tk.Button(root, text="Mat-UV Duplicator", command=mat_uv_duplicator, bg="#ea99a2")
-# mat_uv_duplicator_button.pack()
+mat_uv_duplicator_button = tk.Button(root, text="Mat-UV Duplicator", command=mat_uv_duplicator, bg="#c9d1d9")
+mat_uv_duplicator_button.pack()
 
 # find_node_type_button = tk.Button(root, text="Find Node Type", command=find_node_type, bg="#ea99a2")
 # find_node_type_button.pack()
