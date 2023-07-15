@@ -13,4 +13,4 @@ A "swiss army knife" of blender scripts I have made
 NEWS
 ^^^^
 
-Beta release
+Switching from tkinter (python) to Visual C# to make development much better
