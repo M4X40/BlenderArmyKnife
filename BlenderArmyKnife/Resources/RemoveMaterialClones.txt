@@ -1,0 +1,22 @@
+import bpy
+
+def FixMat(obj, matname, matobj):
+    try:
+        mater = bpy.data.materials.get(f"{matname}".split(".00")[0])
+        print(mater)
+        if mater is not "None":
+            if obj.data.materials:
+                matobj.material = mater
+            else:
+                print(f"Appending {mater}")
+                obj.data.materials.append(mater)
+    except Exception as e:
+        print(f"Could not find material {mater} | {e}")
+
+bpy.ops.object.select_all(action='SELECT')
+for ob in bpy.context.selected_objects:
+    if not len(ob.material_slots) is 0:
+        for mat in ob.material_slots:
+            if ".00" in mat.name:
+                FixMat(ob, mat.name, mat)
+bpy.ops.object.select_all(action='DESELECT')

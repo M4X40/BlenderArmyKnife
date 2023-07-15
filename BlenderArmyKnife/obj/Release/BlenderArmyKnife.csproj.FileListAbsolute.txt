@@ -1,0 +1,12 @@
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\bin\Release\BlenderArmyKnife.exe.config
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\bin\Release\BlenderArmyKnife.exe
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\bin\Release\BlenderArmyKnife.pdb
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.csproj.AssemblyReference.cache
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.csproj.SuggestedBindingRedirects.cache
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.BlenderArmyKnife.resources
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.Popup.resources
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.Properties.Resources.resources
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.csproj.GenerateResource.cache
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.csproj.CoreCompileInputs.cache
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.exe
+C:\Users\maxst\Downloads\BlenderArmyKnife\BlenderArmyKnife\BlenderArmyKnife\obj\Release\BlenderArmyKnife.pdb
