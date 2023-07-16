@@ -1,0 +1,15 @@
+import bpy
+
+# Get the active node
+active_node = bpy.context.active_object.active_material.node_tree.nodes.active
+
+# Check if a node is selected
+if active_node is not None:
+    # Print the type of the selected node
+    print("Selected Node Type:", str(type(active_node)))
+else:
+    print("No node selected")
+
+'''
+Selected Node Type: <class 'bpy.types.ShaderNodeGroup'>
+'''
