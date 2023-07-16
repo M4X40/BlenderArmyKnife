@@ -160,7 +160,7 @@
 			// 
 			// label1
 			// 
-			this.label1.AutoSize = true;
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.ForeColor = System.Drawing.Color.White;
 			this.label1.Location = new System.Drawing.Point(54, 9);
 			this.label1.Name = "label1";
@@ -191,7 +191,6 @@
 			this.Name = "BlenderArmyKnife";
 			this.Text = "Blender Army Knife";
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
