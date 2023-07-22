@@ -1,0 +1,53 @@
+import bpy
+import os
+
+# Material Settings #
+EnableMats = True
+obName = "ENV_MOD_FloorTile.mo"
+numMaterials = 3
+mats = {
+0: "Wall-Tiles"
+}
+
+# UV Map Settings #
+EnableUV = False
+firstObj = "ENV_MOD_Office_Wall.mo.017" # Object that has desired UV Maps
+
+
+
+# DO NOT CHANGE ANYTHING BELOW THIS LINE #
+
+
+
+lastObj = "none"
+bpy.ops.object.select_all(action='SELECT')
+
+for ob in bpy.context.selected_objects:
+    if obName in ob.name:
+        if EnableMats:
+            currentMat = 0
+            for mat in ob.material_slots:
+                mat.material = bpy.data.materials.get(mats[currentMat])
+                
+                currentMat += 1
+    
+        if EnableUV:
+            if not lastObj == "none":
+                obj1 = bpy.data.objects[lastObj]
+            else:
+                obj1 = bpy.data.objects[firstObj]
+            obj2 = bpy.data.objects[ob.name]
+            
+            bpy.ops.object.select_all(action='DESELECT')
+            
+            bpy.context.view_layer.objects.active = obj1
+            obj1.select_set(True)
+            obj2.select_set(True)
+            
+            bpy.ops.object.join_uvs()
+            
+            bpy.ops.object.select_all(action='SELECT')
+            
+            lastObj = ob.name
+
+bpy.ops.object.select_all(action='SELECT')
