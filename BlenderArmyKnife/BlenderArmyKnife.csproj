@@ -67,12 +67,6 @@
     <Compile Include="BlenderArmyKnife.Designer.cs">
       <DependentUpon>BlenderArmyKnife.cs</DependentUpon>
     </Compile>
-    <Compile Include="Credits.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Credits.Designer.cs">
-      <DependentUpon>Credits.cs</DependentUpon>
-    </Compile>
     <Compile Include="Popup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,9 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BlenderArmyKnife.resx">
       <DependentUpon>BlenderArmyKnife.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Credits.resx">
-      <DependentUpon>Credits.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Popup.resx">
       <DependentUpon>Popup.cs</DependentUpon>
@@ -126,28 +117,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FindNodeType.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\findreplacematerial.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GroupToPBSDF.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\importer.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Mat-UV_Looping.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RemoveMaterialClones.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Asset 1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Octicons-mark-github.svg.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
