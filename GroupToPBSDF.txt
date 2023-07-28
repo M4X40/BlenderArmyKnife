@@ -1,6 +1,7 @@
 import bpy
 
 Debug = False #Prints textures that dont get linked to a PBSDF, in the format "mat | image"
+DeleteGroup = True #Deletes the group node: recommended.
 
 # NOTE: THIS SCRIPT SKIPS MASKS #
 
@@ -37,7 +38,8 @@ DiffuseTexNames = [
     "texture",
     "diffuse_skin0",
     "bco",
-    "basecolor_low"
+    "basecolor_low",
+    "01"
 ]
 RoughTexNames = [
     "roughness",
@@ -74,7 +76,9 @@ def swap_links(mat, output, input):
     mat.node_tree.links.new(output, input)
 
 print('\n\nstart\n\n')
+MatsWithNoTex = []
 for mat in bpy.data.materials:
+    skipmat = False
     if mat.node_tree is not None:
         try:
             bsdf = mat.node_tree.nodes.new(type='ShaderNodeBsdfPrincipled')
@@ -104,11 +108,13 @@ for mat in bpy.data.materials:
                 found_metal = False
                 found_rough = False
                 found_emiss = False
+                texnodefound = False
                 for input in node.inputs:
                     if input.is_linked:
                         for link in input.links:
                             connected_node = link.from_node
                             if ((str(type(connected_node))).split("<class \'")[1]).split("\'")[0] == 'bpy.types.ShaderNodeTexImage':
+                                texnodefound = True
                                 if not((connected_node.image.name).lower()).startswith("t_base"):
                                     output = connected_node.outputs.get('Color')
                                     for n in DiffuseTexNames:
@@ -155,6 +161,13 @@ for mat in bpy.data.materials:
                                             found_rough = True
                                             found_metal = True
                                             break
+                if DeleteGroup:
+                    mat.node_tree.nodes.remove(node)
+                if texnodefound:
+                    if not mat in MatsWithNoTex:
+                        print(f"Mat {(mat.name).split('.mat')[0]} has no Textures or has no links, skipping.")
+                        MatsWithNoTex.append(mat)
+                    break
                 if Debug:
                     for input in node.inputs:
                         if input.is_linked:
