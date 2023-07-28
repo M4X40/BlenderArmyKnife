@@ -36,7 +36,8 @@ DiffuseTexNames = [
     "a_tga",
     "texture",
     "diffuse_skin0",
-    "bco"
+    "bco",
+    "basecolor_low"
 ]
 RoughTexNames = [
     "roughness",
