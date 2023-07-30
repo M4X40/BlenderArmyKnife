@@ -18,8 +18,15 @@ ORMTexNames = [
     "srm",
     "_or",
     "rma",
-    "RoughnessAOMetallic",
-    "MaskRougnessMetall"
+    "roughnessaometallic",
+    "maskrougnessmetall",
+    "_occ",
+    "_occl",
+    "_occlus",
+    "occlusionroughnessmetallic_var2",
+    "_ao_r_m_e" # dont ask me why this is here i just find these and put them in
+    "_aoroughnessmetallic",
+    "rgm"
 ]
 DiffuseTexNames = [
     "diffuse",
@@ -39,13 +46,21 @@ DiffuseTexNames = [
     "diffuse_skin0",
     "bco",
     "basecolor_low",
-    "01"
+    "01",
+    "05",
+    "_diff_t",
+    "_base",
+    "_bas",
+    "_baseco",
+    "_basecolor_var2"
 ]
 RoughTexNames = [
     "roughness",
     "rough",
     "_r",
-    "roughness_skin0"
+    "roughness_skin0",
+    "_gloss",
+    "_gloss_t"
 ]
 MetalTexNames = [
     "metalness",
@@ -67,7 +82,11 @@ NormalTexNames = [
     "normal_tga",
     "norm",
     "_n",
-    "normal_skin0"
+    "normal_skin0",
+    "nm",
+    "_normal_t",
+    "_nor",
+    "_normal_var2"
 ]
 
 def swap_links(mat, output, input):
@@ -77,6 +96,7 @@ def swap_links(mat, output, input):
 
 print('\n\nstart\n\n')
 MatsWithNoTex = []
+OverlapTex = []
 for mat in bpy.data.materials:
     skipmat = False
     if mat.node_tree is not None:
@@ -101,14 +121,17 @@ for mat in bpy.data.materials:
             mat.node_tree.links.remove(existing_link)
 
         mat.node_tree.links.new(bsdf.outputs['BSDF'], input_out)
+        texnodefound = False
         for node in mat.node_tree.nodes:
+            nodename = ((str(type(node))).split("<class \'")[1]).split("\'")[0]
+            #print(f'Node: {nodename}')
             if ((str(type(node))).split("<class \'")[1]).split("\'")[0] == 'bpy.types.ShaderNodeGroup':
+                #print(f"Found group for mat {(mat.name).split('.mat')[0]}")
                 found_color = False
                 found_norma = False
                 found_metal = False
                 found_rough = False
                 found_emiss = False
-                texnodefound = False
                 for input in node.inputs:
                     if input.is_linked:
                         for link in input.links:
@@ -145,11 +168,6 @@ for mat in bpy.data.materials:
                                             connected_node.image.colorspace_settings.name = "Non-Color"
                                             found_rough = True
                                             break
-                                    for n in EmissionTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_emiss:
-                                            swap_links(mat, output, input_emiss)
-                                            found_emiss = True
-                                            break
                                     for n in ORMTexNames:
                                         if ((connected_node.image.name).lower()).endswith(n) and not found_rough and not found_metal:
                                             connected_node.image.colorspace_settings.name = "Non-Color"
@@ -160,14 +178,14 @@ for mat in bpy.data.materials:
                                             mat.node_tree.links.new(dupe_node.outputs.get('Color'), input_rough)
                                             found_rough = True
                                             found_metal = True
+                                            if n == "_ao_r_m_e":
+                                                OverlapTex.append((connected_node.image.name).lower())
                                             break
-                if DeleteGroup:
-                    mat.node_tree.nodes.remove(node)
-                if texnodefound:
-                    if not mat in MatsWithNoTex:
-                        print(f"Mat {(mat.name).split('.mat')[0]} has no Textures or has no links, skipping.")
-                        MatsWithNoTex.append(mat)
-                    break
+                                    for n in EmissionTexNames:
+                                        if ((connected_node.image.name).lower()).endswith(n) and not found_emiss and not ((connected_node.image.name).lower() in OverlapTex):
+                                            swap_links(mat, output, input_emiss)
+                                            found_emiss = True
+                                            break
                 if Debug:
                     for input in node.inputs:
                         if input.is_linked:
@@ -202,4 +220,14 @@ for mat in bpy.data.materials:
                                                 break
                                         if not dontprint:
                                             print(f"{mat.name} | {connected_node.image.name}")
+                if DeleteGroup:
+                    mat.node_tree.nodes.remove(node)
+            elif not texnodefound and ((str(type(node))).split("<class \'")[1]).split("\'")[0] == 'bpy.types.ShaderNodeTexImage':
+                texnodefound = True
+        if not texnodefound:
+            if not mat in MatsWithNoTex:
+                print(f"Mat {(mat.name).split('.mat')[0]} has no Textures or has no links, skipping.")
+                MatsWithNoTex.append(mat)
+            continue
+                
 print(f'\n\nDone!\n\n')
