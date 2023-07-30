@@ -138,54 +138,58 @@ for mat in bpy.data.materials:
                             connected_node = link.from_node
                             if ((str(type(connected_node))).split("<class \'")[1]).split("\'")[0] == 'bpy.types.ShaderNodeTexImage':
                                 texnodefound = True
-                                if not((connected_node.image.name).lower()).startswith("t_base"):
-                                    output = connected_node.outputs.get('Color')
-                                    for n in DiffuseTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_color:
-                                            swap_links(mat, output, input_color)
-                                            connected_node.image.colorspace_settings.name = "sRGB"
-                                            found_color = True
-                                            break
-                                    for n in NormalTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_norma:
-                                            nm = mat.node_tree.nodes.new("ShaderNodeNormalMap")
-                                            input_normal = nm.inputs.get('Color')
-                                            output_normal = nm.outputs.get('Normal')
-                                            swap_links(mat, output, input_normal)
-                                            mat.node_tree.links.new(output_normal, input_norma)
-                                            connected_node.image.colorspace_settings.name = "Non-Color"
-                                            found_norma = True
-                                            break
-                                    for n in MetalTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_metal:
-                                            swap_links(mat, output, input_metal)
-                                            connected_node.image.colorspace_settings.name = "Non-Color"
-                                            found_metal = True
-                                            break
-                                    for n in RoughTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_rough:
-                                            swap_links(mat, output, input_rough)
-                                            connected_node.image.colorspace_settings.name = "Non-Color"
-                                            found_rough = True
-                                            break
-                                    for n in ORMTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_rough and not found_metal:
-                                            connected_node.image.colorspace_settings.name = "Non-Color"
-                                            dupe_node = mat.node_tree.nodes.new(type='ShaderNodeTexImage')
-                                            dupe_node.image = connected_node.image
-                                            dupe_node.image.colorspace_settings.name = "Non-Color"
-                                            swap_links(mat, output, input_metal)
-                                            mat.node_tree.links.new(dupe_node.outputs.get('Color'), input_rough)
-                                            found_rough = True
-                                            found_metal = True
-                                            if n == "_ao_r_m_e":
-                                                OverlapTex.append((connected_node.image.name).lower())
-                                            break
-                                    for n in EmissionTexNames:
-                                        if ((connected_node.image.name).lower()).endswith(n) and not found_emiss and not ((connected_node.image.name).lower() in OverlapTex):
-                                            swap_links(mat, output, input_emiss)
-                                            found_emiss = True
-                                            break
+                                try:
+                                    if not((connected_node.image.name).lower()).startswith("t_base"):
+                                        output = connected_node.outputs.get('Color')
+                                        for n in DiffuseTexNames:
+                                            if ((connected_node.image.name).lower()).endswith(n) and not found_color:
+                                                swap_links(mat, output, input_color)
+                                                connected_node.image.colorspace_settings.name = "sRGB"
+                                                found_color = True
+                                                break
+                                        for n in NormalTexNames:
+                                            if ((connected_node.image.name).lower()).endswith(n) and not found_norma:
+                                                nm = mat.node_tree.nodes.new("ShaderNodeNormalMap")
+                                                input_normal = nm.inputs.get('Color')
+                                                output_normal = nm.outputs.get('Normal')
+                                                swap_links(mat, output, input_normal)
+                                                mat.node_tree.links.new(output_normal, input_norma)
+                                                connected_node.image.colorspace_settings.name = "Non-Color"
+                                                found_norma = True
+                                                break
+                                        for n in MetalTexNames:
+                                            if ((connected_node.image.name).lower()).endswith(n) and not found_metal:
+                                                swap_links(mat, output, input_metal)
+                                                connected_node.image.colorspace_settings.name = "Non-Color"
+                                                found_metal = True
+                                                break
+                                        for n in RoughTexNames:
+                                            if ((connected_node.image.name).lower()).endswith(n) and not found_rough:
+                                                swap_links(mat, output, input_rough)
+                                                connected_node.image.colorspace_settings.name = "Non-Color"
+                                                found_rough = True
+                                                break
+                                        for n in ORMTexNames:
+                                            if ((connected_node.image.name).lower()).endswith(n) and not found_rough and not found_metal:
+                                                connected_node.image.colorspace_settings.name = "Non-Color"
+                                                dupe_node = mat.node_tree.nodes.new(type='ShaderNodeTexImage')
+                                                dupe_node.image = connected_node.image
+                                                dupe_node.image.colorspace_settings.name = "Non-Color"
+                                                swap_links(mat, output, input_metal)
+                                                mat.node_tree.links.new(dupe_node.outputs.get('Color'), input_rough)
+                                                found_rough = True
+                                                found_metal = True
+                                                if n == "_ao_r_m_e":
+                                                    OverlapTex.append((connected_node.image.name).lower())
+                                                break
+                                        for n in EmissionTexNames:
+                                            if ((connected_node.image.name).lower()).endswith(n) and not found_emiss and not ((connected_node.image.name).lower() in OverlapTex):
+                                                swap_links(mat, output, input_emiss)
+                                                found_emiss = True
+                                                break
+                                except Exception as e:
+                                    print(f"[Error] {e}")
+                                    pass
                 if Debug:
                     for input in node.inputs:
                         if input.is_linked:
