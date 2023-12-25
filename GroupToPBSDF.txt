@@ -26,7 +26,8 @@ ORMTexNames = [
     "occlusionroughnessmetallic_var2",
     "_ao_r_m_e" # dont ask me why this is here i just find these and put them in
     "_aoroughnessmetallic",
-    "rgm"
+    "rgm",
+    "msk"
 ]
 DiffuseTexNames = [
     "diffuse",
@@ -54,7 +55,8 @@ DiffuseTexNames = [
     "_bas",
     "_baseco",
     "_basecolor_var2",
-    "_basecolor2"
+    "_basecolor2",
+    "_dif"
 ]
 RoughTexNames = [
     "roughness",
