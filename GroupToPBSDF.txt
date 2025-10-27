@@ -27,7 +27,8 @@ ORMTexNames = [
     "_ao_r_m_e" # dont ask me why this is here i just find these and put them in
     "_aoroughnessmetallic",
     "rgm",
-    "msk"
+    "msk",
+    "rom)"
 ]
 DiffuseTexNames = [
     "diffuse",
@@ -92,7 +93,8 @@ NormalTexNames = [
     "_normal_t",
     "_nor",
     "_normal_var2",
-    "_normals"
+    "_normals",
+    "normal_base_texture"
 ]
 
 def swap_links(mat, output, input):
@@ -241,3 +243,4 @@ for mat in bpy.data.materials:
             continue
                 
 print(f'\n\nDone!\n\n')
+
